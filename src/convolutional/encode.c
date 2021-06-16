@@ -2,7 +2,7 @@
 
 size_t correct_convolutional_encode_len(correct_convolutional *conv, size_t msg_len) {
     size_t msgbits = 8 * msg_len;
-    size_t encodedbits = conv->rate * (msgbits + conv->order + 1);
+    size_t encodedbits = conv->rate * (msgbits + conv->order - 1);
     return encodedbits;
 }
 
@@ -47,7 +47,7 @@ size_t correct_convolutional_encode(correct_convolutional *conv,
     // now flush the shiftregister
     // this is simply running the loop as above but without any new inputs
     // or rather, the new input string is all 0s
-    for (size_t i = 0; i < conv->order + 1; i++) {
+    for (size_t i = 0; i < conv->order - 1; i++) {
         shiftregister <<= 1;
         shiftregister &= shiftmask;
         unsigned int out = conv->table[shiftregister];
