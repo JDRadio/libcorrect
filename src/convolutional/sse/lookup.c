@@ -5,15 +5,15 @@ quad_lookup_t quad_lookup_create(unsigned int rate,
                                  const unsigned int *table) {
     quad_lookup_t quads;
 
-    quads.keys = malloc(sizeof(unsigned int) * (1 << (order - 2)));
+    quads.keys = malloc(sizeof(unsigned int) * (1U << (order - 2)));
     quads.outputs = calloc((1 << (rate * 4)), sizeof(unsigned int));
-    unsigned int *inv_outputs = calloc((1 << (rate * 4)), sizeof(unsigned int));
+    unsigned int *inv_outputs = calloc((1U << (rate * 4)), sizeof(unsigned int));
     unsigned int output_counter = 1;
     // for every (even-numbered) shift register state, find the concatenated output of the state
     //   and the subsequent state that follows it (low bit set). then, check to see if this
     //   concatenated output has a unique key assigned to it already. if not, give it a key.
     //   if it does, retrieve the key. assign this key to the shift register state.
-    for (unsigned int i = 0; i < (1 << (order - 2)); i++) {
+    for (unsigned int i = 0; i < (1U << (order - 2)); i++) {
         // first get the concatenated quad of outputs
         unsigned int out = table[i * 4 + 3];
         out <<= rate;
@@ -34,7 +34,7 @@ quad_lookup_t quad_lookup_create(unsigned int rate,
         quads.keys[i] = inv_outputs[out];
     }
     quads.outputs_len = output_counter;
-    quads.output_mask = (1 << (rate)) - 1;
+    quads.output_mask = (1U << (rate)) - 1;
     quads.output_width = rate;
     quads.distances = calloc(quads.outputs_len, sizeof(distance_quad_t));
     free(inv_outputs);
@@ -85,7 +85,7 @@ oct_lookup_t oct_lookup_create(unsigned int rate,
     //   and the subsequent state that follows it (low bit set). then, check to see if this
     //   concatenated output has a unique key assigned to it already. if not, give it a key.
     //   if it does, retrieve the key. assign this key to the shift register state.
-    for (shift_register_t i = 0; i < (1 << (order - 3)); i++) {
+    for (shift_register_t i = 0; i < (1U << (order - 3)); i++) {
         // first get the concatenated oct of outputs
         output_oct_t out = table[i * 8 + 7];
         out <<= rate;
@@ -140,7 +140,7 @@ oct_lookup_t oct_lookup_create(unsigned int rate,
     }
     free(short_outs);
     octs.outputs_len = output_counter;
-    octs.output_mask = (1 << (rate)) - 1;
+    octs.output_mask = (1U << (rate)) - 1;
     octs.output_width = rate;
     octs.distances = malloc(octs.outputs_len * 2 * sizeof(uint64_t));
     return octs;
