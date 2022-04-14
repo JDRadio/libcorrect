@@ -8,7 +8,7 @@ void fill_table(unsigned int rate,
                 unsigned int order,
                 const polynomial_t *poly,
                 unsigned int *table) {
-    for (shift_register_t i = 0; i < 1 << order; i++) {
+    for (shift_register_t i = 0; i < 1U << order; i++) {
         unsigned int out = 0;
         unsigned int mask = 1;
         for (size_t j = 0; j < rate; j++) {
@@ -32,7 +32,7 @@ pair_lookup_t pair_lookup_create(unsigned int rate,
     //   and the subsequent state that follows it (low bit set). then, check to see if this
     //   concatenated output has a unique key assigned to it already. if not, give it a key.
     //   if it does, retrieve the key. assign this key to the shift register state.
-    for (unsigned int i = 0; i < (1 << (order - 1)); i++) {
+    for (unsigned int i = 0; i < (1U << (order - 1U)); i++) {
         // first get the concatenated pair of outputs
         unsigned int out = table[i * 2 + 1];
         out <<= rate;
