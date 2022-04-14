@@ -79,7 +79,7 @@ static unsigned int reed_solomon_find_error_locator(correct_reed_solomon *rs, si
             // locator = locator - last_locator
             // we will also update last_locator to be locator before this loop takes place
             field_element_t temp;
-            for (int j = 0; j <= (rs->last_error_locator.order + delay_length); j++) {
+            for (size_t j = 0; j <= (rs->last_error_locator.order + delay_length); j++) {
                 temp = rs->error_locator.coeff[j];
                 rs->error_locator.coeff[j] =
                     field_add(rs->field, rs->error_locator.coeff[j], rs->last_error_locator.coeff[j]);
@@ -103,7 +103,7 @@ static unsigned int reed_solomon_find_error_locator(correct_reed_solomon *rs, si
         //    but we'll update locator as before
         // we're basically flattening the two loops from the previous case because
         //    we no longer need to update last_locator
-        for (int j = rs->last_error_locator.order; j >= 0; j--) {
+        for (size_t j = rs->last_error_locator.order; j >= 0; j--) {
             rs->error_locator.coeff[j + delay_length] =
                 field_add(rs->field, rs->error_locator.coeff[j + delay_length],
                           field_div(rs->field, field_mul(rs->field, rs->last_error_locator.coeff[j], discrepancy),
