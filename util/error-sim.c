@@ -167,7 +167,12 @@ int test_conv_noise(conv_testbench *scratch, uint8_t *msg, size_t n_bytes,
 
     ssize_t decode_len = scratch->decode(scratch->decoder, scratch->soft, scratch->enclen, scratch->msg_out);
 
-    if (decode_len != n_bytes) {
+    if (decode_len < 0) {
+        printf("expected to decode %zu bytes, decoded returned an error\n", n_bytes);
+        exit(1);
+    }
+
+    if ((size_t)decode_len != n_bytes) {
         printf("expected to decode %zu bytes, decoded %zu bytes instead\n", n_bytes, decode_len);
         exit(1);
     }
