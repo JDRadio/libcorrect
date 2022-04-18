@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.16)
 project(Correct C)
 include(CheckLibraryExists)
 include(CheckIncludeFiles)
@@ -76,6 +76,7 @@ add_library(correct ${correct_obj_files})
 if(HAVE_SSE)
   target_compile_definitions(correct PUBLIC HAVE_SSE=1)
 endif()
+target_include_directories(correct PUBLIC include)
 
 add_subdirectory(util)
 add_subdirectory(tests)
