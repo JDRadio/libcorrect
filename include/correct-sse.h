@@ -2,6 +2,10 @@
 #define CORRECT_SSE_H
 #include <correct.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct correct_convolutional_sse;
 typedef struct correct_convolutional_sse correct_convolutional_sse;
 
@@ -26,5 +30,10 @@ ssize_t correct_convolutional_sse_decode(correct_convolutional_sse *conv, const 
 ssize_t correct_convolutional_sse_decode_soft(correct_convolutional_sse *conv,
                                               const correct_convolutional_soft_t *encoded,
                                               size_t num_encoded_bits, uint8_t *msg);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -5,6 +5,10 @@
 // header signatures derived from found usages of libfec -- some things may be different
 #include <correct.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Reed-Solomon
 void *init_rs_char(int symbol_size, int primitive_polynomial, int first_consecutive_root,
                    int root_gap, int number_roots, unsigned int pad);
@@ -70,5 +74,10 @@ static inline int parity(unsigned int x) {
     x &= 0xf;
     return (0x6996 >> x) & 1;
 }
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
